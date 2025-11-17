@@ -19,9 +19,10 @@ void push(stack* stack, int data){
     StackNode* newNode = (StackNode*)malloc(sizeof(StackNode));   // Crea un nuevo nodo
     
     if(newNode == NULL){
-        fprint(stdrr, "No se pudo asignar memoria para el nnuevo nodo");
+        fprint(stdrr, "No se pudo asignar memoria para el nuevo nodo");
         exit(EXIT_FAILURE);
     }
+
     newNode->data = data;    // Guarda el dato
     newNode->next = stack->stack->top;  // El nodo nuevo apunta al antiguo top de la pila
     stack->top = newNode;   // El nodo es nuevo es el top de la pila
@@ -31,14 +32,14 @@ void push(stack* stack, int data){
 }
 
 int pop(Stack* stack){
-    if(isEmpty(stack)){    // Verifica si la pila esta vaci
-        fprint(stderr, "Nose puede hacer pop de un stack vacio\n");
+    if(isEmpty(stack)){    // Verifica si la pila esta vacia
+        fprint(stderr, "No se puede hacer pop de un stack vacio\n");
         exit(EXIT_FAILURE);
     }
 
     StackNode* temp = stack->top;  // Guarda la referencia del nodo que se elimina
     int data = temp->data;   //Guarda el dato antes de eliminar el nodo
-    stack->top = temp->next  // El nuevo top es el sigueinte nodo
+    stack->top = temp->next  // El nuevo top es el siguiente nodo
 
     free(temp);    // Libera la memeoria del nodo eliminado
     stacl->size--;    // Actualiza el contador
@@ -60,8 +61,8 @@ int isEmpty(Stack* stack){
 }
 
 void freeStack(Stack*stack){
-    while(!isEmpty(stack)){    // Mientras el stack no esya vaciom va eliminado nodos
-        pop(stack);   // pop se encarga de liberar cada nodo
+    while(!isEmpty(stack)){    // Mientras el stack no este vacio va eliminado nodos
+        pop(stack);   // El pop se encarga de liberar cada nodo
     }
     
     freee(stack);   //Libera el stack principal
@@ -76,7 +77,7 @@ void printSatck(Stack* stack){
 
     printf("El contenido del stack es: \n")
 
-    StackNode* current = stack->top;   // Este e sun puntero temporal que recorre la pila sin modificarla
+    StackNode* current = stack->top;   // Este es un puntero temporal que recorre la pila sin modificarla
 
     while(current != NULL){    // Recorre los nodos con el puntero anterior
         printf("%d", current->data);   // Imprime el dato
