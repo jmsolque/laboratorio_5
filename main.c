@@ -31,26 +31,35 @@ int main() {
     freeStack(stack);  // Libera el espacio de memoria de la pila 
     
     
+    /* ===================== PARTE LISTA ENLAZADA  ===================== */
+
     printf("\nDemostración de la Lista Enlazada\n");
 
-    Nodo *lista = NULL;  // Inicia la lista con NULL
+    Nodo *lista = NULL;      // Empiezo con la lista vacía (NULL)
 
-    insertar_inicio(&lista, 5);       // Incerta un 5
-    insertar_inicio(&lista, 10);      // Incerta un 10
-    insertar_final(&lista, 20);       // Incerta un 20
-    insertar_posicion(&lista, 15, 2);    // Incerta un 15 en la posición 2
+    // Inserto algunos valores para probar las funciones básicas de la lista
+    insertar_inicio(&lista, 5);        // Inserta 5 al inicio
+    insertar_inicio(&lista, 10);       // Inserta 10 al inicio (queda antes del 5)
+    insertar_final(&lista, 20);        // Inserta 20 al final
+    insertar_posicion(&lista, 15, 2);  // Inserta 15 en la posición 2 (entre 10 y 5)
 
-    printf("Lista actual: ");   
-    imprimir_lista(lista);    // Imprime la lista 
+    printf("Lista actual: ");
+    imprimir_lista(lista);             // Muestra cómo quedó la lista
 
-    Nodo* buscado = buscar(lista, 15);     // Busca el valor con un puntero 
-    printf("Buscar 15: %s\n", buscado ? "Encontrado" : "No encontrado");   // Indica si encontro el valor buscado
+    // Pruebo la función de búsqueda
+    Nodo* buscado = buscar(lista, 15); // Busco el valor 15 en la lista
+    printf("Buscar 15: %s\n", buscado ? "Encontrado" : "No encontrado");
 
-    eliminar_valor(&lista, 10);     // Elimina el nodo con valor 10
-    printf("Lista después de eliminar 10: "); 
-    imprimir_lista(lista);  
+    // Pruebo eliminar por valor
+    eliminar_valor(&lista, 10);        // Elimino el nodo que tiene el valor 10
+    printf("Lista después de eliminar 10: ");
+    imprimir_lista(lista);
 
-    liberar_lista(&lista);   // Libera nodo por nodo hasta que la lista queda NULL
+    // Al final libero la memoria de toda la lista
+    liberar_lista(&lista);
+
+    /* ================== FIN PARTE LISTA ENLAZADA  ==================== */
+
 
     printf("\nDemostración Arreglo Dinamico\n");
 
