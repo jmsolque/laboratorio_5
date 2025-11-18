@@ -8,70 +8,76 @@ int main(void) {
 
     printf("\nDemostración del Stack\n");
 
-    Stack* stack = crearstack();    // Llama la función crearstack que  reserva el espacio de memoria con top = NULL y size = 0
+    // Crea la pila vacía
+    Stack* stack = crearStack();
 
     printf("Push 10\n");
-    push(stack, 10);       // Afrega el 10 al top de la pila
-    printStack(stack);     // Imprime la actualización de la pila
+    push(stack, 10);      // Agrega 10 al top
+    printStack(stack);    // Imprime la pila
 
-    printf("Push 20\n");   
-    push(stack, 13);      // Agrega el 13 a al top, respetando LIFO  que es la estructura de la pila
-    printStack(stack);    // Imprime el nuevo top de la pila
+    printf("Push 13\n");
+    push(stack, 13);     // Agrega 13 al top (LIFO)
+    printStack(stack);   // Imprime la pila actualizada
 
-    printf("Peek: %d\n", peek(stack));   // Muestra el elemento del top sin eliminarlo
+    printf("Peek: %d\n", peek(stack));   // Muestra el elemento en el top sin sacarlo
 
-    printf("Pop: %d\n", pop(stack));   // Elimina y devuelve el elemento que esta en el top
-    printStack(stack);   // Imprime la pila luego de eliminar el elemento
+    printf("Pop: %d\n", pop(stack));     // Saca el elemento del top
+    printStack(stack);     // Imprime cómo queda la pila
 
-    printf("Pop: %d\n", pop(stack));  // Saca el unico elemento que queda dejando la pila vacia
-    printStack(stack);    // Imprime un espacio vacio demostrando que se elimino lo ultimo
- 
-    printf("isEmpty: %s\n", isEmpty(stack) ? "Sí" : "No");   // isEmpty retorna 1 y por lo tanto un "Sí", si la pila esta vacia
+    printf("Pop: %d\n", pop(stack));     // Saca el último elemento
+    printStack(stack);    // No imprime nada ya que la pila queda vacía
 
-    freeStack(stack);  // Libera el espacio de memoria de la pila 
-    
-    
+    printf("isEmpty: %s\n", isEmpty(stack) ? "Sí" : "No");  // Verifica si está vacía
+
+    freeStack(stack);    // Devuelve la memoria de la pila
+
+
+
     printf("\nDemostración de la Lista Enlazada\n");
 
-    Nodo *lista = NULL;  // Inicia la lista con NULL
+    Nodo *lista = NULL;    // Empiezo con la lista vacía 
 
-    insertar_inicio(&lista, 5);       // Incerta un 5
-    insertar_inicio(&lista, 10);      // Incerta un 10
-    insertar_final(&lista, 20);       // Incerta un 20
-    insertar_posicion(&lista, 15, 2);    // Incerta un 15 en la posición 2
+    // Inserta algunos valores para probar las funciones básicas de la lista
+    insertar_inicio(&lista, 5);        // Inserta 5 al inicio
+    insertar_inicio(&lista, 10);       // Inserta 10 al inicio (queda antes del 5)
+    insertar_final(&lista, 20);        // Inserta 20 al final
+    insertar_posicion(&lista, 15, 2);  // Inserta 15 en la posición 2 (entre 10 y 5)
 
-    printf("Lista actual: ");   
-    imprimir_lista(lista);    // Imprime la lista 
+    printf("Lista actual: ");
+    imprimir_lista(lista);    // Imprime la lista
 
-    Nodo* buscado = buscar(lista, 15);     // Busca el valor con un puntero 
-    printf("Buscar 15: %s\n", buscado ? "Encontrado" : "No encontrado");   // Indica si encontro el valor buscado
+    // Prueba la función de búsqueda
+    Nodo* buscado = buscar(lista, 15); // Busca el valor 15 en la lista
+    printf("Buscar 15: %s\n", buscado ? "Encontrado" : "No encontrado");
 
-    eliminar_valor(&lista, 10);     // Elimina el nodo con valor 10
-    printf("Lista después de eliminar 10: "); 
-    imprimir_lista(lista);  
+    // Prueba de eliminar por valor
+    eliminar_valor(&lista, 10);   // Elimina el nodo con valor 10
+    printf("Lista después de eliminar 10: ");
+    imprimir_lista(lista);
 
-    liberar_lista(&lista);   // Libera nodo por nodo hasta que la lista queda NULL
+    liberar_lista(&lista);   // Libera la memoria
 
-    printf("\nDemostración Arreglo Dinamico\n");
 
-    DynamicArray* arr = createArray(2);   // Reserva la memeoria para un array inicial de 2 elementos
+    printf("\nDemostración Arreglo Dinámico\n");
 
-    insertElement(arr, 10);  // Incerta 10
-    insertElement(arr, 20);  // Incerta 20
-    insertElement(arr, 30);  // Incerta 30, al ingresar otro valor que supera la capacidad de la memoria, este la aumenta
+    DynamicArray* arr = createArray(2);   // Arreglo dinámico con capacidad inicial 2
 
-    printArray(arr);   // imprime el array nuevo
+    insertElement(arr, 10);   // Inserta 10
+    insertElement(arr, 20);   // Inserta 20
+    insertElement(arr, 30);   // Inserta 30 (debería aumentar la capacidad)
 
-    printf("Elemento en índice 1: %d\n", getElement(arr, 1));   // Retorna el numero en la posición 1, esto inciando en 0,...,n
+    printArray(arr);  // Imprime el arreglo
 
-    printf("Eliminar elemento en índice 1\n");   // Elimina el numero en la posición 1
-    removeAt(arr, 1);
+    printf("Elemento en índice 1: %d\n", getElement(arr, 1));  // Muestra el elemento en la posición 1
 
-    printArray(arr);   // Imprime de nuevo el array
+    printf("Eliminar elemento en índice 1\n");
+    removeAt(arr, 1);    // Elimina el elemento en la posición 1
 
-    freeArray(arr);   // Libera el espacio de memoria
+    printArray(arr);   // Vuelve a imprimir el arreglo
 
-    printf("\n Demostración Finalizada :)\n");
+    freeArray(arr);   // Libera la memoria del arreglo
+
+    printf("\nDemostración Finalizada :)\n");
 
     return 0;
-}
+} 
