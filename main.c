@@ -4,7 +4,7 @@
 #include "lista.h"
 #include "array.h"
 
-int main() {
+int main(void) {
 
     printf("\nDemostración del Stack\n");
 
