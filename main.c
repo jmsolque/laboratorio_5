@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "lista.h"   // Solo listas, nada más
 
-int main() {
+int main(void) {
 
     printf("\nDemostración de la Lista Enlazada\n");
 
