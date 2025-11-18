@@ -104,5 +104,6 @@ int main(void) {
     printf("\nDemostración Finalizada :)\n");
 
     return 0;
+
 } 
 >>>>>>> feature/estructuras
