@@ -1,23 +1,24 @@
 #ifndef STACK_H
 #define STACK_H
 
-typedef struct Stacknode{    // Estructura para un nodo en el stack
-    int data;         // Dato almacenado en el nodo
-    struct Stacknode* next;   // Puntero al siguiente nodo 
-} Stacknode;
+typedef struct StackNode {
+    int data;   // Valor almacenado en este nodo             
+    struct StackNode* next;  // Puntero al siguiente nodo 
+} StackNode;
 
-typedef struct{    // Estructura de la pila
-    Stacknode* top;    // Puntero que apunta a los mas alto de la pila
-    int size;   // Dato almacenado
+typedef struct {
+    StackNode* top;    // Apunta al nodo en el tope de la pila
+    int size;    // Cantidad de elementos en la pila   
 } Stack;
 
-Stack* crearstack();   // Crea una nueva pila en memoria
+// Funciones del stack
+Stack* crearStack();   // Crea un nuevo stack en memoria dinámica y lo inicializa vacío
+void push(Stack* stack, int data);   // Inserta un nuevo elemento en el tope del stack
+int pop(Stack* stack);    // Elimina el elemento del tope y devuelve su valor
+int peek(Stack* stack);   // Devuelve el valor del tope sin eliminarlo (stack no se modifica)
+int isEmpty(Stack* stack);   // Retorna 1 si el stack está vacío, 0 si tiene elementos
+void freeStack(Stack* stack);  // Libera todos los nodos y finalmente el stack completo
+void printStack(Stack* stack);  // Imprime todos los elementos del stack sin modificarlo
 
-void push(Stack* stack, int data);   // Agrega un elemento a al parte superior de la pila
-int pop(Stack* stack);  // Elimina y devulve el elemento a la primera posisici´øn de la pila
-int peek(Stack* stack);   // Devilve el elemento al inicio sin eliminarlo 
-int isEmpty(Stack* stack);   // Verifica si la pila esta vacia 
-void freeStack(Stack* stack);  //Libera el espacio de memoria de la pila
-void printStack(Stack* stack);   // Hace print al contenido guardado en la pila 
 
 #endif
