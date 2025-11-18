@@ -1,91 +1,83 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "stack.h"
+#include <stdio.h>      
+#include <stdlib.h>     
+#include "stack.h" 
 
-Stack* crearStack(){
-    Stack* stack = (Stack*)malloc(sizeof(Stack));   // Reserva el espacio de memoria en la pila
-    
-    if(stack == NULL){
-        fprint(stderr, "No se pudo reservar memoria en el stack\n");
-        exit(EXIT_FAILURE);  // Termina el programa si detecta un error
+// Función para crear un nuevo stack vacío
+Stack* crearStack() {
+    Stack* stack = (Stack*)malloc(sizeof(Stack));   // Reserva memoria para la estructura Stack
+    if (!stack) {        // Verifica si malloc falló
+        fprintf(stderr, "No se pudo reservar memoria para el stack\n");
+        exit(EXIT_FAILURE);    // Termina la ejecución del programa en caso de error
     }
-    stack->top = NULL;   // No hay elementos
-    stack->size = 0;   // Tamaño incial de la pila es 0
-
-    return stack;   // Devuelve el espacio de memoria
+    stack->top = NULL;   // Inicializa el puntero top como NULL (stack vacío)
+    stack->size = 0;     // Inicializa el tamaño en 0
+    return stack;        // Devuelve el stack creado
 }
 
-void push(stack* stack, int data){
-    StackNode* newNode = (StackNode*)malloc(sizeof(StackNode));   // Crea un nuevo nodo
-    
-    if(newNode == NULL){
-        fprint(stdrr, "No se pudo asignar memoria para el nuevo nodo");
+// Inserta un elemento en el tope del stack
+void push(Stack* stack, int data) {
+    StackNode* newNode = (StackNode*)malloc(sizeof(StackNode));  // Reserva memoria para nuevo nodo
+    if (!newNode) {       // Verifica error de memoria
+        fprintf(stderr, "No se pudo reservar memoria para el nodo\n");
         exit(EXIT_FAILURE);
     }
 
-    newNode->data = data;    // Guarda el dato
-    newNode->next = stack->stack->top;  // El nodo nuevo apunta al antiguo top de la pila
-    stack->top = newNode;   // El nodo es nuevo es el top de la pila
-    stack->size++;    // Aumenta el contador de tamaño
-
-    printf("Elemento %d agregado al stack\n", data);
+    newNode->data = data;     // Guarda el dato en el nuevo nodo
+    newNode->next = stack->top;  // Apunta el nuevo nodo al nodo actual del tope
+    stack->top = newNode;     // Actualiza el tope al nuevo nodo
+    stack->size++;     // Incrementa el tamaño del stack
 }
 
-int pop(Stack* stack){
-    if(isEmpty(stack)){    // Verifica si la pila esta vacia
-        fprint(stderr, "No se puede hacer pop de un stack vacio\n");
+// Elimina y retorna el elemento del tope
+int pop(Stack* stack) {
+    if (isEmpty(stack)) {     // Verifica si el stack está vacío
+        fprintf(stderr, "No se puede hacer pop de un stack vacío\n");
         exit(EXIT_FAILURE);
     }
 
-    StackNode* temp = stack->top;  // Guarda la referencia del nodo que se elimina
-    int data = temp->data;   //Guarda el dato antes de eliminar el nodo
-    stack->top = temp->next  // El nuevo top es el siguiente nodo
+    StackNode* temp = stack->top;   // Guarda el nodo del tope
+    int data = temp->data;    // Guarda el dato del nodo para retornarlo
 
-    free(temp);    // Libera la memeoria del nodo eliminado
-    stacl->size--;    // Actualiza el contador
+    stack->top = temp->next; // Mueve el tope al siguiente nodo
+    free(temp);      // Libera la memoria del nodo eliminado
+    stack->size--;  // Reduce el tamaño del stack
 
-    printf("ELmento %d elminado del stack\n",data);
-    return data;   // Devolver el dato eliminado
+    return data;    // Devuelve el valor eliminado
 }
 
-int peek(Stack*stack){
-    if(isEmpty(stack)){
-        fprint(stderr, "No se puede hacer peek de un stack vacio");
+// Devuelve el elemento del tope sin eliminarlo
+int peek(Stack* stack) {
+    if (isEmpty(stack)) {     // Verifica si está vacío
+        fprintf(stderr, "No se puede hacer peek de un stack vacío\n");
         exit(EXIT_FAILURE);
     }
-    return stack->top-.data;   // Retorna el dato del top sin modificar nada
+    return stack->top->data;     // Retorna el dato del tope
 }
 
-int isEmpty(Stack* stack){
-    return stack->top == NULL;   // Si top es NULL, el stack esta vacio
+
+int isEmpty(Stack* stack) {
+    return stack->top == NULL;    // El stack está vacío si top es NULL
 }
 
-void freeStack(Stack*stack){
-    while(!isEmpty(stack)){    // Mientras el stack no este vacio va eliminado nodos
-        pop(stack);   // El pop se encarga de liberar cada nodo
+// Libera toda la memoria del stack
+void freeStack(Stack* stack) {
+    while (!isEmpty(stack)) {  // Mientras haya elementos enel stack los elimina uno por uno
+        pop(stack);           
     }
-    
-    freee(stack);   //Libera el stack principal
-    printf("La memoria del Stack se liberó")
+    free(stack);    // Libera la estructura principal
 }
 
-void printSatck(Stack* stack){
-    if(isEmpty(stack)){     // En caso de que la pila este vacia
-        print("Stack vacio\n");
+void printStack(Stack* stack) {
+    if (isEmpty(stack)) {     // Si no hay elementos
+        printf("Stack vacío\n");
         return;
     }
 
-    printf("El contenido del stack es: \n")
-
-    StackNode* current = stack->top;   // Este es un puntero temporal que recorre la pila sin modificarla
-
-    while(current != NULL){    // Recorre los nodos con el puntero anterior
-        printf("%d", current->data);   // Imprime el dato
-        current = current->next;  // Avanza al siguiente dato
+    printf("Contenido del stack:\n");
+    StackNode* current = stack->top;   // Empieza desde el tope
+    while (current) {    // Recorre todos los nodos
+        printf("%d ", current->data);  // Imprime el valor del nodo actual
+        current = current->next;    // Avanza al siguiente nodo
     }
-
-    printf("\n");
-    printf("El tamaño del stack es: %d\n", stack->size);
-
+    printf("\nTamaño actual: %d\n", stack->size);  // Imprime el tamaño del stack
 }
-
